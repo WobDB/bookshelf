@@ -1,6 +1,9 @@
 const express = require('express');
+const {Mongoose} = require('mongoose');
 const app = express();
 const path = require('path');
+
+
 
 // gets mediaController middleware from mediaController.js
 const mediaController = require('./../controllers/mediaController');
@@ -12,6 +15,11 @@ const PORT = 3000;
 // create user
 app.post('/api/users/create', (req, res) => {
   res.status(200);
+});
+
+// checks for valid session cookie
+app.get('/api/users', (req, res) => {
+  res.status(200).json(res.locals.sessionAuthenticated);
 });
 
 // userlog in

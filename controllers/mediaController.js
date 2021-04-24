@@ -1,4 +1,4 @@
-const Media = require('./../models/mediaModel.js');
+const Media = require('../models/mainModels.js');
 
 // object contains all mediaController middleware
 const mediaController = {};
