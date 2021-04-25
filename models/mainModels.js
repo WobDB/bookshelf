@@ -12,30 +12,28 @@ mongoose
     useUnifiedTopology: true,
     // sets the name of the DB that our collections are part of
     dbName: 'BookshelfDB',
-    useCreateIndex: true  //prevents deprecation warning
+    useCreateIndex: true, //prevents deprecation warning
   })
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(() => console.log('Error in connection to Mongo DB'));
 
 // media schema
 const mediaSchema = new Schema({
-  id: Number,
   title: String,
   type: String,
   currentStatus: String,
 });
 
-// declare media for export
-// const Media = mongoose.model('Media', mediaSchema);
+const SALT_WORK_FACTOR = 10;
 
-  const SALT_WORK_FACTOR = 10;
-
-  // user schema
+// user schema
 const userSchema = new Schema({
+  // User.profileInfo in controllers
   profileInfo: {
-    username: {type: String, unique: true, required: true}, 
-    password: {type: String, required: true}
+    username: {type: String, unique: true, required: true},
+    password: {type: String, required: true},
   },
+  // nested mediaSchema in userSchema
   media: [mediaSchema],
 });
 
@@ -67,14 +65,8 @@ const sessionSchema = new Schema({
 // declare session for export
 const Session = mongoose.model('Session', sessionSchema);
 
-
 // exports media model in an object to be used in the controller
 module.exports = {
   User,
-  Session
-}
-
-
-
-
-
+  Session,
+};

@@ -1,9 +1,8 @@
 const express = require('express');
+// destructured import of mongoose.Mongoose object
 const {Mongoose} = require('mongoose');
 const app = express();
 const path = require('path');
-
-
 
 // gets mediaController middleware from mediaController.js
 const mediaController = require('./../controllers/mediaController');
@@ -19,6 +18,7 @@ app.post('/api/users/create', (req, res) => {
 
 // checks for valid session cookie
 app.get('/api/users', (req, res) => {
+  // json stringified response of sessionAuthenticated cookie
   res.status(200).json(res.locals.sessionAuthenticated);
 });
 
@@ -28,13 +28,15 @@ app.post('/api/users/login', (req, res) => {
 });
 
 //  get media profile
-app.get('/api/media', (req, res) => {
-  res.status(200);
+app.get('/api/media', mediaController.getMedia, (req, res) => {
+  // on success retrieve the media profile
+  res.status(200).send(res.locals.media);
 });
 
 // adding type of media
-app.post('/api/media', (req, res) => {
-  res.status(200);
+app.post('/api/media', mediaController.addMedia, (req, res) => {
+  // on success, send the media input
+  res.status(200).send(res.body);
 });
 
 // update a specific media entry
@@ -43,7 +45,7 @@ app.put('/api/media', (req, res) => {
 });
 
 // delete media entry
-app.delete('/api/media', (req, res) => {
+app.delete('/api/media', mediaController.deleteMedia, (req, res) => {
   res.status(200);
 });
 
