@@ -42,11 +42,11 @@ mediaController.getMedia = (req, res, next) => {
 
 // add a media type to user profile
 mediaController.addMedia = (req, res, next) => {
-  // update media property on user
+  // finds and update media property on user and returns the updated user 
   User.findOneAndUpdate(
       // filter for the _id
       { _id: req.params.userId },
-      // $push is a mongoDb method to push into media 
+      // $push is a mongoDb method to push into media array
       { $push: { User.media: req.body.mediaId }})
     .then(next())
     .catch((err) => {
@@ -61,7 +61,9 @@ mediaController.updateMedia = (req, res, next) => {};
 // updates the User by pulling the requested media item
 mediaController.deleteMedia = (req, res, next) => {
   User.findOneAndUpdate(
+      // filters for the userId
       { _id: req.params.userId },
+      // removes from the User.media array the media item
       {$pull: {User.media: req.body.mediaId}})
     .then(next())
     .catch((err) => {
