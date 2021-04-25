@@ -4,13 +4,7 @@ const {User} = require('../models/mainModels.js');
 // object contains all mediaController middleware
 const mediaController = {};
 
-// A possible approach (syntax is not exactly correct - this is the general idea)
 
-// User.findOne({_id: req.params.userId}).
-// then -> userMedia = user.media
-// userMedia.push(req.body)
-
-// User.update({_id: req.params.userId}, {media: userMedia})
 
 // middleware to get entire media profile of user
 mediaController.getMedia = (req, res, next) => {
@@ -31,34 +25,50 @@ mediaController.getMedia = (req, res, next) => {
       res.locals.media = response.media;
       return next();
     })
-    .catch((err) => {
-      next('error in getMedia middleware');
+    .catch((error) => {
+      console.log(err.stack)
+      return next('error in getMedia middleware');
     });
 };
 
+
+// A possible approach (syntax is not exactly correct - this is the general idea) for add media into the array
+
+// User.findOne({_id: req.params.userId}).
+// then -> userMedia = user.media
+// userMedia.push(req.body)
+
+// User.update({_id: req.params.userId}, {media: userMedia})
+
 // add a media type to user profile
 mediaController.addMedia = (req, res, next) => {
-  //media.create, create conditions for data to allow into array
-  const {title, type, currentStatus} = req.body;
-
   // update media property on user
-  User.update({title, type, currentStatus})
-    .then((response) => {
-      console.log('mediaController addMedia fired');
-      res.locals.media = response;
-      return next();
-    })
+  User.findOneAndUpdate(
+      // filter for the _id
+      { _id: req.params.userId },
+      // $push is a mongoDb method to push into media 
+      { $push: { User.media: req.body.mediaId }})
+    .then(next())
     .catch((err) => {
-      next('error in addMedia middleware');
+      console.log(err.stack)
+      return next('error in addMedia middleware');
     });
 };
 
 // update the entry of a specific media type
 mediaController.updateMedia = (req, res, next) => {};
 
-// deletes specific media type entry
+// updates the User by pulling the requested media item
 mediaController.deleteMedia = (req, res, next) => {
-  const {id} = req.body;
+  User.findOneAndUpdate(
+      { _id: req.params.userId },
+      {$pull: {User.media: req.body.mediaId}})
+    .then(next())
+    .catch((err) => {
+      console.log(err.stack)
+      return next('error in mediaController.deleteMedia')
+  })
+  
 };
 
 // exports mediaController object to server
