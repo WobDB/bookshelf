@@ -37,6 +37,8 @@ export const userLoginActionCreator = (e) => (dispatch) => {
   representing a React synthetic event for login form submission
 */
 
+  e.preventDefault();
+
   fetch('https://localhost:3000/api/users/create', {
     method: 'POST',
     headers: {
@@ -69,10 +71,12 @@ export const userLoginActionCreator = (e) => (dispatch) => {
       }  
 
     }) //Request error
-    .catch(dispatch({
+    .catch((e) => {
+      dispatch({
       type: actions.LOG_IN,
       payload: {verified: false}
-    }));
+      });
+    });
 }
 
 export const createUserActionCreator = (e) => (dispatch) => {
@@ -80,6 +84,8 @@ export const createUserActionCreator = (e) => (dispatch) => {
   thunked action creator to create a user expecting (e)
   representing a React synthetic event for user creation form
 */
+
+  e.preventDefault();
 
   fetch('http://localhost:3000/api/users/create', {
     method: 'POST',
@@ -115,9 +121,11 @@ export const createUserActionCreator = (e) => (dispatch) => {
         });
       }
     })
-    .catch(dispatch({
-      type: actions.CREATE_USER,
-      payload: {verified: false}
-    }))
+    .catch((e) => {
+      dispatch({
+        type: actions.CREATE_USER,
+        payload: {verified: false}
+      });
+    });
 
 }
