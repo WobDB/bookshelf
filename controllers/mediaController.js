@@ -46,8 +46,8 @@ mediaController.addMedia = (req, res, next) => {
   User.findOneAndUpdate(
       // filter for the _id
       { _id: req.params.userId },
-      // $push is a mongoDb method to push into media array
-      { $push: { User.media: req.body.mediaId }})
+      // $addToSet is a mongoDb method to add into media Array without duplicates
+      { $addToSet: { User.media: req.body.mediaId }})
     .then(next())
     .catch((err) => {
       console.log(err.stack)
