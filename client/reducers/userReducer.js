@@ -23,14 +23,15 @@ const userReducer = (state = initialState, action) => {
     case (actions.LOG_IN): {
       return action.payload.verified ? {...state, loggedIn: true, userProfile: action.payload.userProfile}
         : {...state, badLoginAttempted: true}; //if not verified, update state for use in indicating login was unsuccessful
-
     }
 
     case (actions.CREATE_USER): {
       return action.payload.verified ? {...state, loggedIn: true, userProfile: action.payload.userProfile}
         : {...state, badCreateUserAttempted: true}; //if not verified, update state for use in indicating user creation was unsuccessful
-
     }
+
+    default:
+      return state;
   }
 
 }
