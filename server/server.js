@@ -49,7 +49,7 @@ app.put('/api/media', (req, res) => {
 
 // delete media entry
 app.delete('/api/media', mediaController.deleteMedia, (req, res) => {
-  res.status(200);
+  res.status(200).json(res.body);
 });
 
 // sending to homepage
