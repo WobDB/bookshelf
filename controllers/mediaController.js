@@ -1,11 +1,19 @@
 // import Media schema from models
 const { User } = require('../models/mainModels.js');
-// destructured media property of User schema
-const { media } = User;
+
 
 
 // object contains all mediaController middleware
 const mediaController = {};
+
+
+// A possible approach (syntax is not exactly correct - this is the general idea)
+
+// User.findOne({_id: req.params.userId}).
+// then -> userMedia = user.media
+// userMedia.push(req.body)
+
+// User.update({_id: req.params.userId}, {media: userMedia})
 
 
 // middleware to get entire media profile of user
@@ -16,12 +24,12 @@ mediaController.getMedia = (req, res, next) => {
       // console.log to see if fired
       console.log("mediaController getMedia fired")
       // store in local memory
-    res.locals.media = response;
-    return next();
-  })
-  .catch(err => {
-    next('error in getMedia middleware');
-  })
+      res.locals.media = response;
+      return next();
+    })
+    .catch(err => {
+      next('error in getMedia middleware');
+    })
 };
 
 // add a media type to user profile
@@ -35,10 +43,10 @@ const { title, type, currentStatus } = req.body;
       console.log('mediaController addMedia fired')
       res.locals.media = response;
       return next();
+      })
+    .catch(err => {
+      next('error in addMedia middleware');
     })
-  .catch(err => {
-    next('error in addMedia middleware');
-  })
 
 };
 

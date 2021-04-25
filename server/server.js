@@ -3,6 +3,9 @@ const express = require('express');
 const {Mongoose} = require('mongoose');
 const app = express();
 const path = require('path');
+const cors = require('cors');
+
+app.use(cors());
 
 // gets mediaController middleware from mediaController.js
 const mediaController = require('./../controllers/mediaController');
@@ -30,13 +33,13 @@ app.post('/api/users/login', (req, res) => {
 //  get media profile
 app.get('/api/media', mediaController.getMedia, (req, res) => {
   // on success retrieve the media profile
-  res.status(200).send(res.locals.media);
+  res.status(200).json(res.locals.media);
 });
 
 // adding type of media
 app.post('/api/media', mediaController.addMedia, (req, res) => {
   // on success, send the media input
-  res.status(200).send(res.body);
+  res.status(200).json(res.body);
 });
 
 // update a specific media entry
