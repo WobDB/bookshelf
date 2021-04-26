@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default ({ login }) => {
 
@@ -16,6 +17,11 @@ export default ({ login }) => {
 
         <input type='submit' value='Login!'></input>
       </form>
+
+      <Link to='/signup'>
+       <p>New? Sign up here</p>
+      </Link>
+      
     </div>
   )
 }
