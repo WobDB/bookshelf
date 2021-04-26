@@ -7,7 +7,9 @@ const sessionController = {};
 sessionController.createSession = async (req, res, next) => {
   try {
     // this might need to be res.locals.user._id
-    const newSession = await Session.create({ cookieId: res.locals.user.id });
+    await Session.create({ cookieId: res.locals.user._id });
+    console.log('New session created!');
+    res.locals.sessionAuthenticated = true;
     return next();
   } catch (error) {
     console.log(error.stack);
@@ -33,6 +35,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
     if (foundSession !== null) {
       console.log('User is logged in!');
       res.locals.sessionAuthenticated = true;
+      res.locals.id = id;
       return next();
     } else {
       res.locals.sessionAuthenticated = false;
@@ -42,6 +45,27 @@ sessionController.isLoggedIn = async (req, res, next) => {
     console.log(error.stack);
     return next(error);
   }
+};
+
+sessionController.servePage = async (req, res, next) => {
+  if (res.locals.sessionAuthenticated) {
+    try {
+      const foundUser = await User.findOne({ _id: req.cookies.ssid }).exec();
+      res.locals.payload = {
+        verified: true,
+        userProfile: foundUser
+      };
+    } catch (error) {
+      console.log(error.stack);
+      return next(error);
+    }
+  } else {
+    res.locals.payload = {
+      verified: false,
+      userProfile: {}
+    }
+    return next();
+  };
 };
 
 module.exports = sessionController;
