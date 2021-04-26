@@ -44,14 +44,14 @@ mediaController.addMedia = (req, res, next) => {
     // filter for the _id
     {_id: req.query.userId},
     // $push is a mongoDb method to add into media Array
-    { $push: { media: req.body } },
+    {$push: {media: req.body}},
     // this property shows the new updated version
-    { new: true }
+    {new: true}
   )
-    .then(user => {
+    .then((user) => {
       // store in local memory that last media item just added
-      res.locals.media = user.media[user.media.length-1];
-      return next()
+      res.locals.media = user.media[user.media.length - 1];
+      return next();
     })
     .catch((err) => {
       console.log(err.stack);
@@ -65,7 +65,9 @@ mediaController.updateMedia = (req, res, next) => {
     // filter for the _id
     {_id: req.query.userId},
     // set updates the media
-    {$set: {media: req.body}}
+    {$set: {media: req.body}},
+    // this property shows the new updated version
+    {new: true}
   )
     .then(next())
     .catch((err) => {
@@ -80,7 +82,9 @@ mediaController.deleteMedia = (req, res, next) => {
     // filters for the userId
     {_id: req.query.userId},
     // removes from the User.media array the media item
-    {$pull: {media: req.body}}
+    {$pull: {media: req.body}},
+    // this property shows the new updated version
+    {new: true}
   )
     .then(next())
     .catch((err) => {
