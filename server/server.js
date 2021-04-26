@@ -18,30 +18,39 @@ app.use(express.json());
 const PORT = 3000;
 
 // checks for valid session cookie -- is the user already in an active session?
-app.get('/api/users', sessionController.isLoggedIn, sessionController.servePage, (req, res) => {
-  // json stringified response of sessionAuthenticated cookie
-  res.status(200).json(res.locals.payload);
-});
+app.get(
+  '/api/users',
+  sessionController.isLoggedIn,
+  sessionController.servePage,
+  (req, res) => {
+    // json stringified response of sessionAuthenticated cookie
+    res.status(200).json(res.locals.payload);
+  }
+);
 
 // create user
-app.post('/api/users/create',
+app.post(
+  '/api/users/create',
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.createSession,
   sessionController.servePage,
   (req, res) => {
     res.status(200).json(res.locals.payload);
-});
+  }
+);
 
 // user login
-app.post('/api/users/login',
+app.post(
+  '/api/users/login',
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.createSession,
   sessionController.servePage,
   (req, res) => {
     res.status(200).json(res.locals.payload);
-});
+  }
+);
 
 //  get media profile
 app.get('/api/media', mediaController.getMedia, (req, res) => {

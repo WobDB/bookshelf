@@ -63,13 +63,19 @@ mediaController.addMedia = (req, res, next) => {
 mediaController.updateMedia = (req, res, next) => {
   User.findOneAndUpdate(
     // filter for the _id
-    {_id: req.query.userId},
+    {
+      _id: req.query.userId,
+    },
     // set updates the media
     {$set: {media: req.body}},
     // this property shows the new updated version
     {new: true}
   )
-    .then(next())
+    .then((user) => {
+      // store in local memory that last media item just added
+      res.locals.media = user.media;
+      return next();
+    })
     .catch((err) => {
       console.log(err.stack);
       return next('error in addMedia middleware');
