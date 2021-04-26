@@ -12,7 +12,7 @@ export const checkSessionActionCreator = () => (dispatch) => {
 
       dispatch({
         type: actions.CHECK_SESSION,
-        payload: userData
+        payload: {userData}
       });
 
       /*
@@ -101,7 +101,7 @@ export const createUserActionCreator = (e) => (dispatch) => {
     }
   })
     .then(res => res.json())
-    .then(user => {
+    .then(userProfile => {
 
       //successful user creation
       if (res.status >= 200 && res.status < 300) {
@@ -109,7 +109,7 @@ export const createUserActionCreator = (e) => (dispatch) => {
           type: actions.CREATE_USER,
           payload: {
             verified: true,
-            userProfile: user
+            userProfile: userProfile
           }
         })
 
