@@ -4,8 +4,9 @@ const {Mongoose} = require('mongoose');
 const app = express();
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
-app.use(cors());
+
 
 // gets mediaController middleware from mediaController.js
 const userController = require('./../controllers/userController');
@@ -15,6 +16,8 @@ const mediaController = require('./../controllers/mediaController');
 
 // use express.json instead of body-parser
 app.use(express.json());
+app.use(cors());
+app.use(cookieParser())
 const PORT = 3000;
 
 // checks for valid session cookie -- is the user already in an active session?

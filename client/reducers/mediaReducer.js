@@ -3,46 +3,7 @@ import actions from '../constants/actions.js';
 
 //testing only: production should have state = [] in reducer params
 const initialState = {
-  media: [
-    {
-      _id: 1234,
-      title: 'Foo',
-      type: 'tvShows',
-      currentStatus: 'backlog',
-    },
-    {
-      _id: 1931,
-      title: 'Bar',
-      type: 'tvShows',
-      currentStatus: 'in_progress'
-    },
-    {
-      _id: 19944,
-      title: 'Hello World!',
-      type: 'tvShows',
-      currentStatus: 'in_progress'
-    },
-    {
-      _id: 39912,
-      title: 'South Park',
-      type: 'tvShows',
-      currentStatus: 'complete'
-    },
-    {
-      _id: 1348913,
-      title: 'Never Gonna Give You Up',
-      type: 'songs',
-      currentStatus: 'in_progress',
-      artist: 'Rick Astley'
-    },
-    {
-      _id: 98831923,
-      title: 'Mr. Roboto',
-      type: 'songs',
-      currentStatus: 'complete',
-      artist: 'Styx'
-    }
-  ],
+  media: [],
   selectedType: null
 };
 
@@ -60,9 +21,11 @@ const mediaReducer = (state = initialState, action) => {
 
     //Expected payload: media object to be pushed to the current media state array
     case(actions.ADD_MEDIA): {
+      const newMedia = [...state.media]
+      newMedia.push(action.payload)
       return {
         ...state,
-        media: [...state.media].push(action.payload)
+        media: newMedia
       }
     }
 
