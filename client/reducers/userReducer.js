@@ -1,13 +1,30 @@
 import actions from '../constants/actions.js';
 
 //Set initial state of the user - not authenticated, and profile is unknown.
+// const initialState = {
+//   sessionChecked: false,
+//   loggedIn: false,
+//   badLoginAttempted: false, //will be referenced to display error messaging to the user if they provided invalid credentials
+//   badCreateUserAttempted: false, //will be referenced to display error messaging to user if they did not properly attempt to create credentials
+//   userProfile: {}
+// };
+
+
+//for testing only
 const initialState = {
-  sessionChecked: false,
-  loggedIn: false,
+  sessionChecked: true,
+  loggedIn: true,
   badLoginAttempted: false, //will be referenced to display error messaging to the user if they provided invalid credentials
   badCreateUserAttempted: false, //will be referenced to display error messaging to user if they did not properly attempt to create credentials
-  userProfile: {}
+  userProfile: {
+    _id: 1232,
+    username: 'bulknskull',
+    email: 'billy@gmail.com',
+    firstName: 'Billy',
+    lastName: 'Hellbringer'
+  }
 };
+
 
 const userReducer = (state = initialState, action) => {
 
