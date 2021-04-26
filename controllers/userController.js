@@ -28,12 +28,13 @@ userController.verifyUser = async (req, res, next) => {
 
   // only query userName; check out bcrypt docs to see how to compare input password and encrypted password
   try {
-    const foundUser = await User.findOne({ username }).exec();
+    const foundUser = await User.findOne({ userProfile: { username } }).exec();
     if (foundUser !== null) {
-      bcrypt.compare(password, foundUser.password, (err, res) => {
+      bcrypt.compare(password, foundUser.userProfile.password, (err, res) => {
         if (err) return next(err);
         if (res) {
           console.log(`User ${username} verified!`);
+          res.locals.user = foundUser;
           return next();
         }
       });

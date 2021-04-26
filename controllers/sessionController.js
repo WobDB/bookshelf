@@ -5,6 +5,8 @@ const sessionController = {};
 
 // middleware to create a new session
 sessionController.createSession = async (req, res, next) => {
+  if (res.locals.notFound) return next();
+  
   try {
     // this might need to be res.locals.user._id
     await Session.create({ cookieId: res.locals.user._id });
@@ -29,13 +31,13 @@ sessionController.isLoggedIn = async (req, res, next) => {
   }
 
   const id = req.cookies.ssid;
+  res.locals.ssid = req.cookies.ssid;
 
   try {
     const foundSession = await Session.findOne({ cookieId: id }).exec();
     if (foundSession !== null) {
       console.log('User is logged in!');
       res.locals.sessionAuthenticated = true;
-      res.locals.id = id;
       return next();
     } else {
       res.locals.sessionAuthenticated = false;
@@ -50,7 +52,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
 sessionController.servePage = async (req, res, next) => {
   if (res.locals.sessionAuthenticated) {
     try {
-      const foundUser = await User.findOne({ _id: req.cookies.ssid }).exec();
+      const foundUser = await User.findOne({ _id: res.locals.ssid }).exec();
       res.locals.payload = {
         verified: true,
         userProfile: foundUser
