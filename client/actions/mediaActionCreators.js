@@ -16,6 +16,27 @@ media to display on the main application (filter for media type)
 
 }
 
+export const getMediaActionCreator = (userId) => (dispatch) => {
+/*
+thunked action creator to fetch all media for the user
+*/
+
+//unref once route handler is complete
+  // fetch(`http://localhost:3000/?userId=${userId}`)
+  //   .then(res => res.json())
+  //   .then(media => {
+  //     dispatch({
+  //       type: actions.GET_MEDIA,
+  //       payload: media
+  //     })
+  //   })
+  //   .catch(err => {
+  //     dispatch({
+  //       type: actions.GET_MEDIA,
+  //       payload: []
+  //     })
+  //   })
+}
 export const addMediaActionCreator = (e) => (dispatch) => {
 /*
 thunked action creator to add new media
