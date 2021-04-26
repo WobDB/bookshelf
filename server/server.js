@@ -14,6 +14,9 @@ const mediaController = require('./../controllers/mediaController');
 app.use(express.json());
 const PORT = 3000;
 
+app.get('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, './../index.html'));
+
 // create user
 app.post('/api/users/create', (req, res) => {
   res.status(200);
@@ -66,3 +69,5 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on PORT: ${PORT}`);
 });
+
+
