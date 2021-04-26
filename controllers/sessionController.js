@@ -1,5 +1,4 @@
-const { Session } = require('../models/mainModels');
-
+const { Session, User } = require('../models/mainModels');
 const sessionController = {};
 
 

@@ -38,6 +38,12 @@ export const userLoginActionCreator = (e) => (dispatch) => {
 */
 
   e.preventDefault();
+  console.log(JSON.stringify({
+    username: e.target[0].value,
+    password: e.target[1].value
+  }));
+
+  console.log('About to send a login POST request');
 
   fetch('https://localhost:3000/api/users/login', {
     method: 'POST',
@@ -56,17 +62,14 @@ export const userLoginActionCreator = (e) => (dispatch) => {
       if (res.status >= 200 && res.status < 300) {
         dispatch({
           type: actions.LOG_IN,
-          payload: {
-            verified: true,
-            userProfile: userProfile
-          }
+          payload: userProfile
         });
 
       //Unsuccessful log-in
       } else if (res.status >= 400) {
         dispatch({
           type: actions.LOG_IN,
-          payload: {verified: false}
+          payload: userProfile
         });
       }  
 
@@ -74,7 +77,10 @@ export const userLoginActionCreator = (e) => (dispatch) => {
     .catch((e) => {
       dispatch({
       type: actions.LOG_IN,
-      payload: {verified: false}
+      payload: {
+        verified: false,
+        userProfile: {}
+      }
       });
     });
 }
@@ -90,15 +96,15 @@ export const createUserActionCreator = (e) => (dispatch) => {
   fetch('http://localhost:3000/api/users/create', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application-json'
+      'Content-Type': 'application/json'
     },
-    body: {
+    body: JSON.stringify({
       username: e.target[0].value,
       password: e.target[1].value,
       email: e.target[2].value,
       firstName: e.target[3].value,
       lastName: e.target[4].value
-    }
+    })
   })
     .then(res => res.json())
     .then(userProfile => {
@@ -107,24 +113,24 @@ export const createUserActionCreator = (e) => (dispatch) => {
       if (res.status >= 200 && res.status < 300) {
         dispatch({
           type: actions.CREATE_USER,
-          payload: {
-            verified: true,
-            userProfile: userProfile
-          }
+          payload: userProfile
         })
 
       //unsuccessful user creation
       } else if (res.status >= 400) {
         dispatch({
             type: actions.CREATE_USER,
-            payload: {verified: false}
+            payload: userProfile
         });
       }
     })
     .catch((e) => {
       dispatch({
         type: actions.CREATE_USER,
-        payload: {verified: false}
+        payload: {
+          verified: false,
+          userProfile: {}
+        }
       });
     });
 

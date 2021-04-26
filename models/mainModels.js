@@ -47,17 +47,19 @@ userSchema.pre('save', function (next) {
   const user = this;
   // user.password becomes the passed in property
   // bcrypt.hash, pw + salt
-  bcrypt.hash(user.profileInfo.password, SALT_WORK_FACTOR, (err, hash) => {
+  bcrypt.hash(user.userProfile.password, SALT_WORK_FACTOR, (err, hash) => {
     if (err) return next(err);
     // password is reassigned the hash
-    user.profileInfo.password = hash;
+    user.userProfile.password = hash;
     // return next middleware, moves on to the saving document
+    console.log(user);
     return next();
-  });
+    
+  })
 });
 
 // declare user for export
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('user', userSchema);
 
 // sessionSchema
 const sessionSchema = new Schema({
@@ -66,7 +68,7 @@ const sessionSchema = new Schema({
 });
 
 // declare session for export
-const Session = mongoose.model('Session', sessionSchema);
+const Session = mongoose.model('session', sessionSchema);
 
 // exports media model in an object to be used in the controller
 module.exports = {
