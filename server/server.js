@@ -14,9 +14,6 @@ const mediaController = require('./../controllers/mediaController');
 app.use(express.json());
 const PORT = 3000;
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, './../index.html'));
-
 // create user
 app.post('/api/users/create', (req, res) => {
   res.status(200);
@@ -57,7 +54,7 @@ app.delete('/api/media', mediaController.deleteMedia, (req, res) => {
 
 // sending to homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './../index.html'));
+  res.status(200).sendFile(path.resolve(__dirname, './../index.html'));
 });
 
 // Global error handler

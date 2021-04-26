@@ -24,11 +24,9 @@ const mediaSchema = new Schema({
   currentStatus: String,
 });
 
-const SALT_WORK_FACTOR = 10;
-
 // user schema
 const userSchema = new Schema({
-  // User.profileInfo in controllers
+  // userProfile in controllers
   userProfile: {
     username: {type: String, unique: true, required: true},
     password: {type: String, required: true},
@@ -40,6 +38,7 @@ const userSchema = new Schema({
   media: [mediaSchema],
 });
 
+const SALT_WORK_FACTOR = 10;
 // No arrow functions, to use "this"
 // 'save' is a presave hook, executes everytime the document is saved
 userSchema.pre('save', function (next) {
@@ -68,7 +67,7 @@ const sessionSchema = new Schema({
 // declare session for export
 const Session = mongoose.model('Session', sessionSchema);
 
-// exports media model in an object to be used in the controller
+// exports user and session model in an object to be used in the controller, media is embedded in user object
 module.exports = {
   User,
   Session,
