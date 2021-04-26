@@ -93,7 +93,7 @@ export const createUserActionCreator = (e) => (dispatch) => {
       'Content-Type': 'application-json'
     },
     body: {
-      userName: e.target[0].value,
+      username: e.target[0].value,
       password: e.target[1].value,
       email: e.target[2].value,
       firstName: e.target[3].value,
