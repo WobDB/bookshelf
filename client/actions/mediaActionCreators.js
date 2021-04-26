@@ -22,7 +22,8 @@ thunked action creator to fetch all media for the user
 */
 
 //unref once route handler is complete
-  // fetch(`http://localhost:3000/?userId=${userId}`)
+
+  // fetch(`http://localhost:3000/api/media?userId=${userId}`)
   //   .then(res => res.json())
   //   .then(media => {
   //     dispatch({
@@ -37,6 +38,8 @@ thunked action creator to fetch all media for the user
   //     })
   //   })
 }
+
+
 export const addMediaActionCreator = (e) => (dispatch) => {
 /*
 thunked action creator to add new media

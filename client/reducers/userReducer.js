@@ -13,7 +13,7 @@ import actions from '../constants/actions.js';
 //for testing only
 const initialState = {
   sessionChecked: true,
-  loggedIn: true,
+  loggedIn: false,
   badLoginAttempted: false, //will be referenced to display error messaging to the user if they provided invalid credentials
   badCreateUserAttempted: false, //will be referenced to display error messaging to user if they did not properly attempt to create credentials
   userProfile: {

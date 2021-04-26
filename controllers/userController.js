@@ -4,11 +4,15 @@ const userController = {};
 
 // middleware to create a new user
 userController.createUser = async (req, res, next) => {
+  
+  console.log(req.body);
   const { username, password, email, firstName, lastName } = req.body;
   if (!username || !password || !email || !firstName || !lastName ) return next('Missing information in userController.createUser');
 
   try {
-    const newUser = await User.create({ username, password, email, firstName, lastName });
+    console.log('Trying to create and save document...');
+    const newUser = await User.create({userProfile: req.body});
+    console.log('Document created: ', newUser);
     res.locals.user = newUser;
     return next();
   } catch (error) {
@@ -24,6 +28,8 @@ userController.createUser = async (req, res, next) => {
 
 // middleware to check whether user already exists
 userController.verifyUser = async (req, res, next) => {
+
+  console.log('Login received: ', req.body);
   const { username, password } = req.body;
 
   // only query userName; check out bcrypt docs to see how to compare input password and encrypted password
