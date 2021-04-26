@@ -29,7 +29,7 @@ const SALT_WORK_FACTOR = 10;
 // user schema
 const userSchema = new Schema({
   // User.profileInfo in controllers
-  profileInfo: {
+  userProfile: {
     username: {type: String, unique: true, required: true},
     password: {type: String, required: true},
     email: {type: String, unique: true, required: true},
