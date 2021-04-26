@@ -43,8 +43,8 @@ app.post('/api/media', mediaController.addMedia, (req, res) => {
 });
 
 // update a specific media entry
-app.put('/api/media', (req, res) => {
-  res.status(200);
+app.put('/api/media', mediaController.updateMedia, (req, res) => {
+  res.status(200).json(res.body);
 });
 
 // delete media entry
