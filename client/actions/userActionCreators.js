@@ -39,13 +39,13 @@ export const userLoginActionCreator = (e) => (dispatch) => {
 
   e.preventDefault();
 
-  fetch('https://localhost:3000/api/users/create', {
+  fetch('https://localhost:3000/api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      userName: e.target[0].value,
+      username: e.target[0].value,
       password: e.target[1].value
     })
   })
