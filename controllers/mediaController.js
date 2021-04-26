@@ -72,7 +72,7 @@ mediaController.updateMedia = (req, res, next) => {
     {new: true}
   )
     .then((user) => {
-      // store in local memory that last media item just added
+      // store in local memory the item that was updated
       res.locals.media = user.media;
       return next();
     })
