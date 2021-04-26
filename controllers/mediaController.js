@@ -30,13 +30,6 @@ mediaController.getMedia = (req, res, next) => {
     });
 };
 
-// A possible approach (syntax is not exactly correct - this is the general idea) for add media into the array
-
-// User.findOne({_id: req.params.userId}).
-// then -> userMedia = user.media
-// userMedia.push(req.body)
-
-// User.update({_id: req.params.userId}, {media: userMedia})
 
 // add a media type to user profile
 mediaController.addMedia = (req, res, next) => {
@@ -64,13 +57,19 @@ mediaController.addMedia = (req, res, next) => {
 mediaController.updateMedia = (req, res, next) => {
   User.findOneAndUpdate(
     // filter for the _id
-    {_id: req.query.userId},
+    {
+      _id: req.query.userId,
+    },
     // set updates the media
     {$set: {media: req.body}},
     // this property shows the new updated version
     {new: true}
   )
-    .then(next())
+    .then((user) => {
+      // store in local memory the item that was updated
+      res.locals.media = user.media;
+      return next();
+    })
     .catch((err) => {
       console.log(err.stack);
       return next('error in addMedia middleware');
