@@ -31,21 +31,31 @@ class AddMediaContainer extends Component {
         <h3>Add new media</h3>
         <form onSubmit={this.props.addMedia}>
 
-          <label htmlFor={defaultFields.TYPE}>Type</label>
-          <select id={defaultFields.TYPE}>
-            {typeOptions}
-          </select>
+          <div>
+            <label htmlFor={defaultFields.TYPE}>Type:</label>
+            <select id={defaultFields.TYPE}>
+              {typeOptions}
+            </select>
+          </div>
+          
+          <div>
+            <label htmlFor={defaultFields.TITLE}>Title:</label>
+            <input type="text" id={defaultFields.TITLE}></input>
+          </div>
 
-          <label htmlFor={defaultFields.TITLE}>Title</label>
-          <input type="text" id={defaultFields.TITLE}></input>
+          <div>
+            <label htmlFor={defaultFields.CURRENT_STATUS}>Current Status:</label>
+            <select id={defaultFields.CURRENT_STATUS}>
+              <option value={mediaStatuses.BACKLOG}>Backlog</option>
+              <option value={mediaStatuses.IN_PROGRESS}>In Progress</option>
+              <option value={mediaStatuses.COMPLETE}>Complete</option>
+            </select>
+          </div>
 
-          <label htmlFor={defaultFields.CURRENT_STATUS}>Current Status:</label>
-          <select id={defaultFields.CURRENT_STATUS}>
-            <option value={mediaStatuses.BACKLOG}>Backlog</option>
-            <option value={mediaStatuses.IN_PROGRESS}>In Progress</option>
-            <option value={mediaStatuses.COMPLETE}>Complete</option>
-          </select>
-          <input type="submit" value="Add New Media"></input>
+          <div>
+            <input type="submit" id='addMediaButton' value="Add New Media"></input>
+          </div>
+          
         </form>
       </div>
     )
