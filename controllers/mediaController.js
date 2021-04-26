@@ -29,13 +29,6 @@ mediaController.getMedia = (req, res, next) => {
     });
 };
 
-// A possible approach (syntax is not exactly correct - this is the general idea) for add media into the array
-
-// User.findOne({_id: req.params.userId}).
-// then -> userMedia = user.media
-// userMedia.push(req.body)
-
-// User.update({_id: req.params.userId}, {media: userMedia})
 
 // add a media type to user profile
 mediaController.addMedia = (req, res, next) => {
