@@ -1,3 +1,13 @@
 body {
   background-color: lightgreen;
 }
+
+#media-types-container {
+  display: flex;
+  padding: 1em;
+  border: 1px solid black;
+}
+
+.media {
+  border: 1px solid black;
+}
