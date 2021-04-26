@@ -5,8 +5,8 @@ export default (props) => {
   console.log(props);
   return (
     <div className='media'>
-      <p>Title: {props.title}</p>
-      <p>Status: {mediaTypesSchema[props.type].statusNames[props.currentStatus]}</p> 
+      <p class='title'><strong>Title</strong> {props.title}</p>
+      <p class='status'><strong>Status</strong> {mediaTypesSchema[props.type].statusNames[props.currentStatus]}</p> 
     </div>
   )
 }

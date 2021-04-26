@@ -4,6 +4,46 @@ import actions from '../constants/actions.js';
 //testing only: production should have state = [] in reducer params
 const initialState = {
   media: [],
+//   media: [
+//     {
+//       _id: 1234,
+//       title: 'The Sopranos',
+//       type: 'tvShows',
+//       currentStatus: 'backlog',
+//     },
+//     {
+//       _id: 1931,
+//       title: 'Lost',
+//       type: 'tvShows',
+//       currentStatus: 'in_progress'
+//     },
+//     {
+//       _id: 19944,
+//       title: 'Arrested Development',
+//       type: 'tvShows',
+//       currentStatus: 'in_progress'
+//     },
+//     {
+//       _id: 39912,
+//       title: 'Twin Peaks',
+//       type: 'tvShows',
+//       currentStatus: 'complete'
+//     },
+//     {
+//       _id: 1348913,
+//       title: '"Never Gonna Give You Up"',
+//       type: 'songs',
+//       currentStatus: 'in_progress',
+//       artist: 'Rick Astley'
+//     },
+//     {
+//       _id: 98831923,
+//       title: '"Mr. Roboto"',
+//       type: 'songs',
+//       currentStatus: 'complete',
+//       artist: 'Styx'
+//     }
+//   ],
   selectedType: null
 };
 
