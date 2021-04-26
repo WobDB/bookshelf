@@ -42,11 +42,17 @@ mediaController.addMedia = (req, res, next) => {
   // finds and update media property on user and returns the updated user
   User.findOneAndUpdate(
     // filter for the _id
-    {_id: req.params.userId},
-    // $addToSet is a mongoDb method to add into media Array without duplicates
-    {$addToSet: {media: userMedia}}
+    {_id: req.query.userId},
+    // $push is a mongoDb method to add into media Array
+    { $push: { media: req.body } },
+    // this property shows the new updated version
+    { new: true }
   )
-    .then(next())
+    .then(user => {
+      // store in local memory that last media item just added
+      res.locals.media = user.media[user.media.length-1];
+      return next()
+    })
     .catch((err) => {
       console.log(err.stack);
       return next('error in addMedia middleware');
@@ -57,9 +63,9 @@ mediaController.addMedia = (req, res, next) => {
 mediaController.updateMedia = (req, res, next) => {
   User.findOneAndUpdate(
     // filter for the _id
-    {_id: req.params.userId},
+    {_id: req.query.userId},
     // set updates the media
-    {$set: {media: userMedia}}
+    {$set: {media: req.body}}
   )
     .then(next())
     .catch((err) => {
@@ -72,9 +78,9 @@ mediaController.updateMedia = (req, res, next) => {
 mediaController.deleteMedia = (req, res, next) => {
   User.findOneAndUpdate(
     // filters for the userId
-    {_id: req.params.userId},
+    {_id: req.query.userId},
     // removes from the User.media array the media item
-    {$pull: {media: userMedia}}
+    {$pull: {media: req.body}}
   )
     .then(next())
     .catch((err) => {

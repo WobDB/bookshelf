@@ -39,7 +39,7 @@ app.get('/api/media', mediaController.getMedia, (req, res) => {
 // adding type of media
 app.post('/api/media', mediaController.addMedia, (req, res) => {
   // on success, send the media input
-  res.status(200).json(res.body);
+  res.status(200).json(res.locals.media);
 });
 
 // update a specific media entry
