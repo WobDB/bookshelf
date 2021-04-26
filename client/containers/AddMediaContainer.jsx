@@ -23,6 +23,9 @@ class AddMediaContainer extends Component {
       typeOptions.push(<option value={mediaType} key={`type-option-${idx}`}>{mediaTypesSchema[mediaType].displayName}</option>)
     });
 
+    //Status options for new media ideally are dynamically updated
+    //for custom display names based on the media type being added
+
     return (
       <div id='add-media-container'>
         <h3>Add new media</h3>

@@ -18,7 +18,12 @@ and any custom figurations for each media type
 -displayName: How the media type is displayed to the user
 -customFields: Any custom fields/attributes applicable to a specific media type
 -statusNames: Custom display names for each status type, for a given media type
+
+These configurations are necessary to strictly enforce how types (and their attributes)
+are being referenced through the application, because they are frequently referenced
+across various components and containers.
 */
+
 export const mediaTypesSchema = {
   books: {
     displayName: 'Books',
