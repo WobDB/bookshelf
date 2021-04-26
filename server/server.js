@@ -8,29 +8,39 @@ const cors = require('cors');
 app.use(cors());
 
 // gets mediaController middleware from mediaController.js
+const userController = require('./../controllers/userController');
+const sessionController = require('./../controllers/sessionController');
+const cookieController = require('./../controllers/cookieController');
 const mediaController = require('./../controllers/mediaController');
 
 // use express.json instead of body-parser
 app.use(express.json());
 const PORT = 3000;
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, './../index.html'));
+// checks for valid session cookie -- is the user already in an active session?
+app.get('/api/users', sessionController.isLoggedIn, sessionController.servePage, (req, res) => {
+  // json stringified response of sessionAuthenticated cookie
+  res.status(200).json(res.locals.payload);
+});
 
 // create user
-app.post('/api/users/create', (req, res) => {
-  res.status(200);
+app.post('/api/users/create',
+  userController.createUser,
+  cookieController.setSSIDCookie,
+  sessionController.createSession,
+  sessionController.servePage,
+  (req, res) => {
+    res.status(200).json(res.locals.payload);
 });
 
-// checks for valid session cookie
-app.get('/api/users', (req, res) => {
-  // json stringified response of sessionAuthenticated cookie
-  res.status(200).json(res.locals.sessionAuthenticated);
-});
-
-// userlog in
-app.post('/api/users/login', (req, res) => {
-  res.status(200);
+// user login
+app.post('/api/users/login',
+  userController.verifyUser,
+  cookieController.setSSIDCookie,
+  sessionController.createSession,
+  sessionController.servePage,
+  (req, res) => {
+    res.status(200).json(res.locals.payload);
 });
 
 //  get media profile
@@ -57,7 +67,7 @@ app.delete('/api/media', mediaController.deleteMedia, (req, res) => {
 
 // sending to homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './../index.html'));
+  res.status(200).sendFile(path.resolve(__dirname, './../index.html'));
 });
 
 // Global error handler
@@ -69,5 +79,3 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on PORT: ${PORT}`);
 });
-
-
