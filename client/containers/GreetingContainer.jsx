@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import GreetingDisplay from '../components/GreetingDisplay.jsx';
 
 const mapStateToProps = (state) => ({
-  displayName: 'Will Sentance' //Need to change to ref state
+  displayName: state.user.userProfile.firstName
 })
 
 class GreetingContainer extends Component {

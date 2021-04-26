@@ -12,7 +12,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        Hello world!
         <Home />
       </div>
     )
