@@ -1,6 +1,5 @@
 import actions from '../constants/actions.js';
 
-
 //testing only: production should have state = [] in reducer params
 const initialState = {
   media: [],
@@ -69,7 +68,7 @@ const mediaReducer = (state = initialState, action) => {
       }
     }
 
-    //Expected payload: updated media object at given index position
+    //Expected payload: updated media object at given index position (positioning features not yet implemented)
     case(actions.UPDATE_MEDIA): {
       return {
         ...state,
@@ -77,7 +76,7 @@ const mediaReducer = (state = initialState, action) => {
       }
     }
 
-    //Expected payload: delete media at given index position
+    //Expected payload: delete media at given index position (positioning features not yet implemented)
     case (actions.DELETE_MEDIA): {
       return {
         ...state,
