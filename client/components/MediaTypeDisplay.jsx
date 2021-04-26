@@ -5,7 +5,7 @@ export default ({ selected, updateType, type }) => {
   
   //if type is the current user-selected type, use custom styling
   const selectedStyle = {};
-  if (selected) selectedStyle.backgroundColor = 'green';
+  if (selected) selectedStyle.backgroundColor = 'rgb(90, 219, 148)';
 
   return (
     <div id='media-type-container'>

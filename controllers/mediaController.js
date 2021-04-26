@@ -7,6 +7,7 @@ const mediaController = {};
 // middleware to get entire media profile of user
 mediaController.getMedia = (req, res, next) => {
   // find all media catalog
+  console.log(req.params, req.query);
   User.findOne({_id: req.query.userId})
     .exec()
     // response is the found User
