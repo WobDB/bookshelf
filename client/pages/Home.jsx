@@ -22,6 +22,7 @@ class Home extends Component {
     super(props);
   }
 
+  //Fetch media for the authenticated for the user
   componentDidMount() {
     this.props.getMedia(this.props.userId);
   }

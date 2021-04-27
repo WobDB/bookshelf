@@ -6,7 +6,7 @@ import MediaTypeDisplay from '../components/MediaTypeDisplay.jsx';
 
 const mapStateToProps = (state) => {
 
-  //Get unique list of media types for the user
+  //Get unique list of media types consumed by the user
   const mediaTypes = state.media.media.reduce((types, media) => {
     if (!types.includes(media.type)) types.push(media.type);
     return types;
