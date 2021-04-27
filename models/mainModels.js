@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 // connect to atlas
-const mongoURI =
-  'mongodb+srv://tester:password5@cluster0.1sqlz.mongodb.net/BookshelfDB?retryWrites=true&w=majority';
+// Add MongoURI from Atlas in string with password and dbName is 'BookshelfDB' instead of myFirstDatabase
+const mongoURI = '';
+
 mongoose
   .connect(mongoURI, {
     // options for the connect method to parse the URI
@@ -54,8 +55,7 @@ userSchema.pre('save', function (next) {
     // return next middleware, moves on to the saving document
     console.log(user);
     return next();
-    
-  })
+  });
 });
 
 // declare user for export
