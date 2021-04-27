@@ -21,33 +21,32 @@ export const getMediaActionCreator = (userId) => (dispatch) => {
 thunked action creator to fetch all media for the user
 */
 
-//unref once route handler is complete
-
-  // fetch(`http://localhost:3000/api/media?userId=${userId}`)
-  //   .then(res => res.json())
-  //   .then(media => {
-  //     dispatch({
-  //       type: actions.GET_MEDIA,
-  //       payload: media
-  //     })
-  //   })
-  //   .catch(err => {
-  //     dispatch({
-  //       type: actions.GET_MEDIA,
-  //       payload: []
-  //     })
-  //   })
+  fetch(`http://localhost:3000/api/media?userId=${userId}`)
+    .then(res => res.json())
+    .then(media => {
+      console.log('media is', media);
+      dispatch({
+        type: actions.GET_MEDIA,
+        payload: media
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: actions.GET_MEDIA,
+        payload: []
+      })
+    })
 }
 
 
-export const addMediaActionCreator = (e) => (dispatch) => {
+export const addMediaActionCreator = (e) => (dispatch, getState) => {
 /*
 thunked action creator to add new media
 */
 
-  console.log(e);
+  console.log('state is', getState());
   e.preventDefault();
-  fetch('http://localhost:3000/api/media', {
+  fetch(`http://localhost:3000/api/media?userId=${getState().user.userProfile._id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -60,6 +59,7 @@ thunked action creator to add new media
   })
     .then(res => res.json())
     .then(newMedia => {
+      console.log('new media is: ', newMedia)
       dispatch({
         type: actions.ADD_MEDIA,
         payload: newMedia

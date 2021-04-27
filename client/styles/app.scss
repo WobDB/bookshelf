@@ -10,6 +10,7 @@ body {
 }
 
 h1 {
+  color: rgb(90, 219, 148);
   font-size: 72px;
   font-family: 'Abril Fatface', cursive;
 }
@@ -175,6 +176,10 @@ h1 {
 
     div label {
       padding-right: 5px;
+    }
+
+    div input {
+      height: 70%
     }
   }
 

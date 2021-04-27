@@ -11,16 +11,18 @@ import { getMediaActionCreator } from '../actions/mediaActionCreators';
 
 const mapStateToProps = (state) => ({
   userId: state.user.userProfile._id
-})
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getMedia: (userId) => dispatch(getMediaActionCreator(userId))
-})
+});
 
 class Home extends Component {
   constructor(props) {
     super(props);
   }
 
+  //Fetch media for the authenticated for the user
   componentDidMount() {
     this.props.getMedia(this.props.userId);
   }

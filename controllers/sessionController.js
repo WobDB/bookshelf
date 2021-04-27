@@ -22,8 +22,9 @@ sessionController.createSession = async (req, res, next) => {
 // middleware to check if user is already in an active session
 sessionController.isLoggedIn = async (req, res, next) => {
   // check to see if there's an ssid cookie present in request cookies
-  // compare createdAt to 
+  // compare createdAt to
   // store bool representing validity at res.locals.sessionAuthenticated
+  console.log(req.cookies.ssid);
   if (!req.cookies.ssid) {
     res.locals.sessionAuthenticated = false;
     return next();
@@ -52,10 +53,15 @@ sessionController.servePage = async (req, res, next) => {
   if (res.locals.sessionAuthenticated) {
     try {
       const foundUser = await User.findOne({ _id: res.locals.ssid }).exec();
+      console.log(foundUser);
       res.locals.payload = {
         verified: true,
-        userProfile: foundUser
+        userProfile: {
+          ...foundUser.userProfile,
+          _id: foundUser._id
+        }
       };
+      return next();
     } catch (error) {
       console.log(error.stack);
       return next(error);

@@ -6,13 +6,15 @@ export const checkSessionActionCreator = () => (dispatch) => {
   if the user has an existing authenticated session
 */
 
-  fetch('https://localhost:3000/api/users')
+  console.log('About to check session');
+  fetch('http://localhost:3000/api/users')
     .then(res => res.json())
     .then(userData => {
-
+      
+      console.log('userData: ', userData);
       dispatch({
         type: actions.CHECK_SESSION,
-        payload: {userData}
+        payload: userData
       });
 
       /*
@@ -21,13 +23,14 @@ export const checkSessionActionCreator = () => (dispatch) => {
         2. userProfile: {data} if verified, {} if not
       */
     })
-    .catch(dispatch({
+    .catch((err) => {
+      dispatch({
       type: actions.CHECK_SESSION,
       payload: {
         verified: false,
         userProfile: {}
-      }
-    }));
+      }});
+   });
 
 }
 
@@ -45,7 +48,7 @@ export const userLoginActionCreator = (e) => (dispatch) => {
 
   console.log('About to send a login POST request');
 
-  fetch('https://localhost:3000/api/users/login', {
+  fetch('http://localhost:3000/api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -57,22 +60,10 @@ export const userLoginActionCreator = (e) => (dispatch) => {
   })
     .then(res => res.json())
     .then(userProfile => {
-
-      //Successful log-in
-      if (res.status >= 200 && res.status < 300) {
-        dispatch({
-          type: actions.LOG_IN,
-          payload: userProfile
-        });
-
-      //Unsuccessful log-in
-      } else if (res.status >= 400) {
-        dispatch({
-          type: actions.LOG_IN,
-          payload: userProfile
-        });
-      }  
-
+      dispatch({
+        type: actions.LOG_IN,
+        payload: userProfile
+      });
     }) //Request error
     .catch((e) => {
       dispatch({
@@ -108,21 +99,10 @@ export const createUserActionCreator = (e) => (dispatch) => {
   })
     .then(res => res.json())
     .then(userProfile => {
-
-      //successful user creation
-      if (res.status >= 200 && res.status < 300) {
-        dispatch({
-          type: actions.CREATE_USER,
-          payload: userProfile
-        })
-
-      //unsuccessful user creation
-      } else if (res.status >= 400) {
-        dispatch({
-            type: actions.CREATE_USER,
-            payload: userProfile
-        });
-      }
+      dispatch({
+        type: actions.CREATE_USER,
+        payload: userProfile
+      })
     })
     .catch((e) => {
       dispatch({

@@ -12,17 +12,11 @@ import actions from '../constants/actions.js';
 
 //for testing only
 const initialState = {
-  sessionChecked: true,
-  loggedIn: true,
+  sessionChecked: false,
+  loggedIn: false,
   badLoginAttempted: false, //will be referenced to display error messaging to the user if they provided invalid credentials
   badCreateUserAttempted: false, //will be referenced to display error messaging to user if they did not properly attempt to create credentials
-  userProfile: {
-    _id: 1232,
-    username: 'bulknskull',
-    email: 'billy@gmail.com',
-    firstName: 'Billy',
-    lastName: 'Hellbringer'
-  }
+  userProfile: {}
 };
 
 
@@ -33,11 +27,12 @@ const userReducer = (state = initialState, action) => {
     //Payload contains a boolean indicating whether the user currently has a valid authenticated session
     case (actions.CHECK_SESSION): {
       return action.payload.verified ? {sessionChecked: true, loggedIn: true, userProfile: action.payload.userProfile} 
-              : state; //if not verified, do not update the state
+              : {...state, sessionChecked: true}; //if not verified, do not update the state
     }
 
     //Payload contains a boolean whether the user logged in with proper credentials.
     case (actions.LOG_IN): {
+      console.log(action.payload);
       return action.payload.verified ? {...state, loggedIn: true, userProfile: action.payload.userProfile}
         : {...state, badLoginAttempted: true}; //if not verified, update state for use in indicating login was unsuccessful
     }
